@@ -1,0 +1,25 @@
+version: 2
+updates:
+  - package-ecosystem: maven
+    directory: "/swagger-server"
+    schedule:
+      interval: daily
+    assignees:
+      - "javiertuya" 
+    open-pull-requests-limit: 20
+
+  - package-ecosystem: nuget
+    directory: "/swagger-client"
+    schedule:
+      interval: daily
+    assignees:
+      - "javiertuya" 
+    open-pull-requests-limit: 20
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 20
+    assignees:
+      - "javiertuya" 

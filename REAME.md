@@ -15,4 +15,4 @@ based on a OpenApi V3 specification:
 - The OpenApi schema is common for all modules, located at [schema/api.yml](schema/api.yml)
 - Endpoints of services are `localhost:8080`
 - Servers are tested in a temurin java 8 jre container
-- Swagger codegen modules are updated using dependbot
+- Swagger modules are updated to the most recent version when possible using dependbot, openapi modules only for security updates
