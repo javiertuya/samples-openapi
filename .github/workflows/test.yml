@@ -26,12 +26,12 @@ jobs:
           cache: 'maven'
 
       - name: Server - Build and test
-        run: cd ${{ matrix.converter }}-server && mvn test -Dmaven.test.failure.ignore=true -U --no-transfer-progress
+        run: cd ${{ matrix.converter }}-server && mvn package -Dmaven.test.failure.ignore=true -U --no-transfer-progress
       - name: Server - Publish test report
         if: always()
         uses: mikepenz/action-junit-report@v2
         with:
-          check_name: test-report-java
+          check_name: test-report-${{ matrix.converter }}-server
           report_paths: '${{ matrix.converter }}-server/target/surefire-reports/TEST-*.xml'
           fail_on_failure: 'true'
 
@@ -39,7 +39,7 @@ jobs:
         run: |
           set -x
           cp ${{ matrix.converter }}-server/target/samples-${{ matrix.converter }}-server-*.jar ${{ matrix.converter }}-server/target/${{ matrix.converter }}-server-deploy.jar
-          docker build --pull -t ${{ matrix.converter }}-server .
+          docker build --pull -t ${{ matrix.converter }}-server ./${{ matrix.converter }}-server
           docker run -d -p 8080:8080 --name ${{ matrix.converter }}-server --restart unless-stopped ${{ matrix.converter }}-server
 
       - name: Client - Build and test
@@ -48,6 +48,6 @@ jobs:
         if: always()
         uses: mikepenz/action-junit-report@v2
         with:
-          check_name: test-report-java
+          check_name: test-report-${{ matrix.converter }}-client
           report_paths: '${{ matrix.converter }}-client/target/surefire-reports/TEST-*.xml'
           fail_on_failure: 'true'
