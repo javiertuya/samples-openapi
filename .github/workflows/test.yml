@@ -1,0 +1,53 @@
+name: test-all
+on:
+  push:
+    branches-ignore:
+      - 'dependabot/**' #avoid duplicates: only run the PR, not the commit
+    tags-ignore:
+      - 'v*' #avoids rerun existing commit on release
+  pull_request:
+    branches:
+      - 'main'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        converter: [openapi, swagger]
+      fail-fast: false
+    steps:
+      - name: Checkout GitHub repo
+        uses: actions/checkout@v3
+      - name: Select Java Version
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '8'
+          cache: 'maven'
+
+      - name: Server - Build and test
+        run: cd ${{ matrix.converter }}-server && mvn test -Dmaven.test.failure.ignore=true -U --no-transfer-progress
+      - name: Server - Publish test report
+        if: always()
+        uses: mikepenz/action-junit-report@v2
+        with:
+          check_name: test-report-java
+          report_paths: '${{ matrix.converter }}-server/target/surefire-reports/TEST-*.xml'
+          fail_on_failure: 'true'
+
+      - name: Server - Deploy container
+        run: |
+          set -x
+          cp ${{ matrix.converter }}-server/target/samples-${{ matrix.converter }}-server-*.jar ${{ matrix.converter }}-server/target/${{ matrix.converter }}-server-deploy.jar
+          docker build --pull -t ${{ matrix.converter }}-server .
+          docker run -d -p 8080:8080 --name ${{ matrix.converter }}-server --restart unless-stopped ${{ matrix.converter }}-server
+
+      - name: Client - Build and test
+        run: cd ${{ matrix.converter }}-client && mvn test -Dmaven.test.failure.ignore=true -U --no-transfer-progress
+      - name: Client - Publish test report
+        if: always()
+        uses: mikepenz/action-junit-report@v2
+        with:
+          check_name: test-report-java
+          report_paths: '${{ matrix.converter }}-client/target/surefire-reports/TEST-*.xml'
+          fail_on_failure: 'true'
