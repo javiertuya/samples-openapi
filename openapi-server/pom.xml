@@ -15,7 +15,7 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<swagger-core-version>1.5.18</swagger-core-version>
 		<beanvalidation-version>2.0.2</beanvalidation-version>
-		<jetty-version>9.2.9.v20150224</jetty-version>
+		<jetty-version>9.4.41.v20210516</jetty-version>
 		<jersey2-version>2.22.2</jersey2-version>
 		<jackson-version>2.9.9</jackson-version>
 		<servlet-api-version>4.0.4</servlet-api-version>
