@@ -29,7 +29,7 @@ jobs:
         run: cd ${{ matrix.converter }}-server && mvn package -Dmaven.test.failure.ignore=false -U --no-transfer-progress
       - name: Server - Publish test report
         if: always()
-        uses: mikepenz/action-junit-report@v3.0.2
+        uses: mikepenz/action-junit-report@v3.0.3
         with:
           check_name: test-report-${{ matrix.converter }}-server
           report_paths: '${{ matrix.converter }}-server/target/surefire-reports/TEST-*.xml'
@@ -46,7 +46,7 @@ jobs:
         run: cd ${{ matrix.converter }}-client && mvn test -Dmaven.test.failure.ignore=false -U --no-transfer-progress
       - name: Client - Publish test report
         if: always()
-        uses: mikepenz/action-junit-report@v3.0.2
+        uses: mikepenz/action-junit-report@v3.0.3
         with:
           check_name: test-report-${{ matrix.converter }}-client
           report_paths: '${{ matrix.converter }}-client/target/surefire-reports/TEST-*.xml'
