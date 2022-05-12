@@ -31,8 +31,25 @@ jobs:
           docker build --pull -t server-spring ./server-spring
           docker run -d -p 8080:8080 --name server-spring --restart unless-stopped server-spring
 
-      - name: Clients - Test (IT)
+      - name: Java Clients - Test (IT)
         run: mvn test -pl client-resttemplate,client-httpclient -Dmaven.test.failure.ignore=false -U --no-transfer-progress
+
+      - name: Netcore Client - Prepare environment
+        uses: actions/setup-dotnet@v2
+        with:
+            dotnet-version: '3.1.x'
+
+      #Generates api with maven for unified generation
+      - name: Netcore Client - Test (IT)
+        run: |
+          mvn generate-sources -pl client-netcore -Dmaven.test.failure.ignore=false -U --no-transfer-progress
+          dotnet test --logger "trx;LogFileName=../../target/nunit-report.trx" client-netcore/client-netcore/client-netcore.csproj || exit 0
+
+      #Convert net test reports to surefire junit format for unified reporting
+      - name: Netcore Client - Split test reports to surefire format
+        run: |
+          dotnet tool install --global DotnetTestSplit
+          DotnetTestSplit client-netcore/target/nunit-report.trx client-netcore/target/surefire-reports
 
       - if: always()
         name: Publish test report artifacts

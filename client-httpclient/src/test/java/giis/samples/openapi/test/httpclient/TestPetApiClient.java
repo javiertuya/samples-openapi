@@ -28,7 +28,7 @@ public class TestPetApiClient {
     	log.info(name.getMethodName());
     }
     @Test
-    public void TestGetAllPets() {
+    public void testGetAllPets() {
 		Pets pets = api.listPets(10);
 		assertTrue(2<=pets.size()); //puede haber mas de dos si se ejecuta antes el metodo que crea pets
 		assertEquals("1", pets.get(0).getId().toString());
@@ -37,13 +37,13 @@ public class TestPetApiClient {
 		assertEquals("dog", pets.get(1).getName());
     }
     @Test
-    public void TestGetExistingPet() {
+    public void testGetExistingPet() {
         Pet pet = api.showPetById("2");
 		assertEquals("2", pet.getId().toString());
 		assertEquals("dog", pet.getName());
     }
     @Test
-    public void TestPostAndGet() {
+    public void testPostAndGet() {
     	//para que sea repetible el id y name se calculan como el siguiente valor de la secuencia de ids existentes 
     	//(pues no se hace un reset de los pets en setup)
     	int newId=api.listPets(10).size()+1;
@@ -54,7 +54,7 @@ public class TestPetApiClient {
 		assertEquals(newName, pet.getName());
     }
     @Test
-    public void TestGetNotExistingPet() {
+    public void testGetNotExistingPet() {
     	try {
         	api.showPetById("0");
         	fail("should return excepton code 404 not found");

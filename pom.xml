@@ -8,5 +8,6 @@
   	<module>server-spring</module>
   	<module>client-resttemplate</module>
   	<module>client-httpclient</module>
+  	<module>client-netcore</module>
   </modules>
 </project>

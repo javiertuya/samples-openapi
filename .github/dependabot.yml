@@ -8,6 +8,14 @@ updates:
       - "javiertuya" 
     open-pull-requests-limit: 20
 
+  - package-ecosystem: nuget
+    directory: "/client-netcore/"
+    schedule:
+      interval: daily
+    assignees:
+      - "javiertuya" 
+    open-pull-requests-limit: 20
+
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
