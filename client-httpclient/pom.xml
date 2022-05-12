@@ -22,7 +22,7 @@
 		<jackson-databind-version>2.13.2.2</jackson-databind-version>
 		<jackson-databind-nullable-version>0.2.2</jackson-databind-nullable-version>
 		<jakarta-annotation-version>2.1.0</jakarta-annotation-version>
-		<jackson-threetenbp-version>2.9.10</jackson-threetenbp-version>
+		<jackson-threetenbp-version>2.12.5</jackson-threetenbp-version>
 	</properties>
 
 	<dependencies>
