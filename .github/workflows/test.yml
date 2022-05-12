@@ -11,10 +11,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        converter: [openapi, swagger]
-      fail-fast: false
     steps:
       - name: Checkout GitHub repo
         uses: actions/checkout@v3
@@ -25,29 +21,30 @@ jobs:
           java-version: '8'
           cache: 'maven'
 
-      - name: Server - Build and test
-        run: cd ${{ matrix.converter }}-server && mvn package -Dmaven.test.failure.ignore=false -U --no-transfer-progress
-      - name: Server - Publish test report
-        if: always()
-        uses: mikepenz/action-junit-report@v3.0.3
-        with:
-          check_name: test-report-${{ matrix.converter }}-server
-          report_paths: '${{ matrix.converter }}-server/target/surefire-reports/TEST-*.xml'
-          fail_on_failure: 'true'
+      - name: Server - Build and test (UT)
+        run: mvn package -pl server-spring -Dmaven.test.failure.ignore=false -U --no-transfer-progress
 
       - name: Server - Deploy container
         run: |
           set -x
-          cp ${{ matrix.converter }}-server/target/samples-${{ matrix.converter }}-server-*.jar ${{ matrix.converter }}-server/target/${{ matrix.converter }}-server-deploy.jar
-          docker build --pull -t ${{ matrix.converter }}-server ./${{ matrix.converter }}-server
-          docker run -d -p 8080:8080 --name ${{ matrix.converter }}-server --restart unless-stopped ${{ matrix.converter }}-server
+          cp server-spring/target/samples-openapi-server-spring-*.jar server-spring/target/server-spring-deploy.jar
+          docker build --pull -t server-spring ./server-spring
+          docker run -d -p 8080:8080 --name server-spring --restart unless-stopped server-spring
 
-      - name: Client - Build and test
-        run: cd ${{ matrix.converter }}-client && mvn test -Dmaven.test.failure.ignore=false -U --no-transfer-progress
-      - name: Client - Publish test report
+      - name: Clients - Test (IT)
+        run: mvn test -pl client-resttemplate,client-httpclient -Dmaven.test.failure.ignore=false -U --no-transfer-progress
+
+      - if: always()
+        name: Publish test report artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-reports
+          path: ./**/target/surefire-reports/
+
+      - name: Publish test reports
         if: always()
         uses: mikepenz/action-junit-report@v3.0.3
         with:
-          check_name: test-report-${{ matrix.converter }}-client
-          report_paths: '${{ matrix.converter }}-client/target/surefire-reports/TEST-*.xml'
+          check_name: test-report
+          report_paths: '**/target/surefire-reports/TEST-*.xml'
           fail_on_failure: 'true'

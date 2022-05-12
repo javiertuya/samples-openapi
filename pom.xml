@@ -5,9 +5,8 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <modules>
-  	<module>swagger-server</module>
-  	<module>swagger-client</module>
-  	<module>openapi-server</module>
-  	<module>openapi-client</module>
+  	<module>server-spring</module>
+  	<module>client-resttemplate</module>
+  	<module>client-httpclient</module>
   </modules>
 </project>
