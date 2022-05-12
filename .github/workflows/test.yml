@@ -30,6 +30,8 @@ jobs:
           cp server-spring/target/samples-openapi-server-spring-*.jar server-spring/target/server-spring-deploy.jar
           docker build --pull -t server-spring ./server-spring
           docker run -d -p 8080:8080 --name server-spring --restart unless-stopped server-spring
+          sleep 5 #some time ensure server up
+          docker logs server-spring
 
       - name: Java Clients - Test (IT)
         run: mvn test -pl client-resttemplate,client-httpclient -Dmaven.test.failure.ignore=false -U --no-transfer-progress
