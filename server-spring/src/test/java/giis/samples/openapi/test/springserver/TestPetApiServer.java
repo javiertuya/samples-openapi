@@ -22,11 +22,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import giis.samples.openapi.invoker.OpenAPI2SpringBoot;
+import giis.samples.openapi.invoker.OpenApiGeneratorApplication;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes={OpenAPI2SpringBoot.class}, webEnvironment=SpringBootTest.WebEnvironment.MOCK)
+@SpringBootTest(classes={OpenApiGeneratorApplication.class}, webEnvironment=SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 public class TestPetApiServer {
 	private final static Logger log=LoggerFactory.getLogger(TestPetApiServer.class);
