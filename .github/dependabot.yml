@@ -2,6 +2,10 @@ version: 2
 updates:
   - package-ecosystem: maven
     directory: "/"
+    #avoids logback 1.4 to keep compatibility with java 8
+    ignore:
+      - dependency-name: "logback-classic"
+        update-types: ["version-update:semver-minor"]
     schedule:
       interval: daily
     assignees:
