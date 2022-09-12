@@ -15,9 +15,10 @@ updates:
   - package-ecosystem: nuget
     directory: "/client-netcore/"
     #RestSharp 107 includes breaking changes still not handled by openapi generator 6.0.0
-    ignore:
-      - dependency-name: "RestSharp"
-        update-types: ["version-update:semver-major"]
+    #RestSharp >=107 is supported by open api generator 6.1.0
+    #ignore:
+    #  - dependency-name: "RestSharp"
+    #    update-types: ["version-update:semver-major"]
     schedule:
       interval: daily
     assignees:
