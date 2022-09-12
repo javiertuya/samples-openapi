@@ -42,9 +42,12 @@ jobs:
             dotnet-version: '3.1.x'
 
       #Generates api with maven for unified generation
+      #Run build before test to fail if complie errors
       - name: Netcore Client - Test (IT)
         run: |
           mvn generate-sources -pl client-netcore -Dmaven.test.failure.ignore=false -U --no-transfer-progress
+          echo "*** Build and test netcore client"
+          dotnet build client-netcore/client-netcore.sln
           dotnet test --logger "trx;LogFileName=../../target/nunit-report.trx" client-netcore/client-netcore/client-netcore.csproj || exit 0
 
       #Convert net test reports to surefire junit format for unified reporting
