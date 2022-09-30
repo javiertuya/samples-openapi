@@ -37,7 +37,7 @@ jobs:
         run: mvn test -pl client-resttemplate,client-httpclient -Dmaven.test.failure.ignore=false -U --no-transfer-progress
 
       - name: Netcore Client - Prepare environment
-        uses: actions/setup-dotnet@v2
+        uses: actions/setup-dotnet@v3
         with:
             dotnet-version: '3.1.x'
 
