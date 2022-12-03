@@ -6,6 +6,8 @@ updates:
     ignore:
       - dependency-name: "ch.qos.logback:logback-classic"
         update-types: ["version-update:semver-minor"]
+      - dependency-name: "org.springframework*"
+        update-types: ["version-update:semver-major"]
     schedule:
       interval: daily
     assignees:
