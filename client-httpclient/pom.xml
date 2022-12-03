@@ -16,11 +16,17 @@
 
 		<!--openapi client dependencies spring apache httpclient + jackson -->
 		<swagger-annotations-version>1.6.9</swagger-annotations-version>
+		
 		<httpclient-version>4.5.13</httpclient-version>
+		
 		<spring-web-version>5.3.19</spring-web-version>
-		<jackson-version>2.13.4</jackson-version>
+		
+		<jackson-version>2.14.1</jackson-version>
+		
 		<jackson-databind-version>2.14.1</jackson-databind-version>
-		<jackson-databind-nullable-version>0.2.2</jackson-databind-nullable-version>
+		
+		<jackson-databind-nullable-version>0.2.4</jackson-databind-nullable-version>
+		
 		<jakarta-annotation-version>2.1.1</jakarta-annotation-version>
 	</properties>
 
