@@ -4,6 +4,10 @@
   <artifactId>samples-openapi</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
+  <properties>
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
   <modules>
   	<module>server-spring</module>
   	<module>client-resttemplate</module>
