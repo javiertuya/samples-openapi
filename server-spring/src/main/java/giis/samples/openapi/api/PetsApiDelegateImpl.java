@@ -17,8 +17,8 @@ public class PetsApiDelegateImpl implements PetsApiDelegate {
 	private static Pets getPetsDb() {
 		if (petsDb==null) {
 			petsDb=new Pets();
-			petsDb.add(new Pet().id((long)1).name("cat"));
-			petsDb.add(new Pet().id((long)2).name("dog"));
+			petsDb.add(new Pet((long)1, "cat"));
+			petsDb.add(new Pet((long)2, "dog"));
 		}
 		return petsDb;
 	}
@@ -46,7 +46,7 @@ public class PetsApiDelegateImpl implements PetsApiDelegate {
 	public ResponseEntity<Void> createPetQuery(Integer id, String name) {
 		log.debug("Call api service: createPetQuery {} {}", id.toString(), name);
 		Pets pets=getPetsDb();
-		pets.add(new Pet().id((long)id).name(name));
+		pets.add(new Pet((long)id, name));
 		return ResponseEntity.ok(null);
 	}
 
