@@ -10,8 +10,6 @@ updates:
         update-types: ["version-update:semver-major"]
     schedule:
       interval: daily
-    assignees:
-      - "javiertuya" 
     open-pull-requests-limit: 20
 
   - package-ecosystem: nuget
@@ -23,8 +21,6 @@ updates:
     #    update-types: ["version-update:semver-major"]
     schedule:
       interval: daily
-    assignees:
-      - "javiertuya" 
     open-pull-requests-limit: 20
 
   - package-ecosystem: github-actions
@@ -43,5 +39,3 @@ updates:
     schedule:
       interval: daily
     open-pull-requests-limit: 20
-    assignees:
-      - "javiertuya" 
