@@ -39,7 +39,7 @@ jobs:
       - name: Netcore Client - Prepare environment
         uses: actions/setup-dotnet@v3
         with:
-            dotnet-version: '3.1.x'
+            dotnet-version: '6.0.x'
 
       #Generates api with maven for unified generation
       #Run build before test to fail if complie errors
@@ -58,7 +58,7 @@ jobs:
 
       - if: always()
         name: Publish test report artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3.1.2
         with:
           name: test-reports
           path: ./**/target/surefire-reports/
