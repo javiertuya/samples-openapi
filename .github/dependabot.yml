@@ -32,7 +32,7 @@ updates:
       - "javiertuya" 
 
   - package-ecosystem: docker
-    directory: "/"
+    directory: "/server-spring/"
     ignore:
       - dependency-name: "eclipse-temurin"
         update-types: ["version-update:semver-major"]
