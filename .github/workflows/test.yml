@@ -58,7 +58,7 @@ jobs:
 
       - if: always()
         name: Publish test report artifacts
-        uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-artifact@v3.1.3
         with:
           name: test-reports
           path: ./**/target/surefire-reports/
