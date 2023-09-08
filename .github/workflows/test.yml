@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout GitHub repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Select Java Version
         uses: actions/setup-java@v3
         with:
@@ -58,14 +58,14 @@ jobs:
 
       - if: always()
         name: Publish test report artifacts
-        uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-artifact@v3.1.3
         with:
           name: test-reports
           path: ./**/target/surefire-reports/
 
       - name: Publish test reports
         if: always()
-        uses: mikepenz/action-junit-report@v3.8.0
+        uses: mikepenz/action-junit-report@v4.0.0
         with:
           check_name: test-report
           report_paths: '**/target/surefire-reports/TEST-*.xml'
