@@ -34,6 +34,7 @@
 							<packageName>Giis.Samples.Openapi</packageName>
 							<apiPackage>Api</apiPackage>
 							<modelPackage>Model</modelPackage>
+							<additionalProperties>nullableReferenceTypes=false</additionalProperties>
 							<!--<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
