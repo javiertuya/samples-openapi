@@ -17,7 +17,7 @@
 		<!--openapi client dependencies: spring resttemplate+jackson -->
 		<swagger-annotations-version>1.6.11</swagger-annotations-version>
 		
-		<spring-web-version>5.3.30</spring-web-version>
+		<spring-web-version>6.0.13</spring-web-version>
 		
 		<jackson-version>2.15.3</jackson-version>
 		
@@ -94,12 +94,6 @@
 		</dependency>
 		
 		<dependency>
-    		<groupId>javax.annotation</groupId>
-    		<artifactId>javax.annotation-api</artifactId>
-    		<version>1.3.2</version>
-		</dependency>
-
-		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.13.2</version>
@@ -139,6 +133,7 @@
 							<modelPackage>giis.samples.openapi.model</modelPackage>
 							<invokerPackage>giis.samples.openapi.invoker</invokerPackage>
 							<instantiationTypes>map=java.util.LinkedHashMap</instantiationTypes>
+							<additionalProperties>useJakartaEe=true</additionalProperties>
 							<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
