@@ -61,7 +61,7 @@ public class TestPetApiClient {
     		api.showPetById("0");
            	fail("should return excepton code 404 not found");
     	} catch (HttpClientErrorException e) {
-    		assertEquals(404, e.getRawStatusCode());
+    		assertEquals("404 NOT_FOUND", e.getStatusCode().toString());
     	}
     }
 
