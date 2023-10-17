@@ -3,7 +3,7 @@
 This is a multimodule maven project that includes samples to generate rest services 
 based on a OpenApi V3 specification:
 
-- *server-spring*: Rest server (Java 17)
+- *server-spring*: Rest server (Spring Boot 3, Java 17)
 - *client-resttemplate*: Java client api (Resttemplate and Fasterxml, Java 17)
 - *client-httpclient*: Java client api (Apache Httpclient and Fasterxml, Java 8)
 - *client-netcore*: .NET Core client api (RestSharp and Newtonsosft.Json, net 6.0)

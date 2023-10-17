@@ -30,7 +30,9 @@ import giis.samples.openapi.invoker.OpenApiGeneratorApplication;
 @AutoConfigureMockMvc
 public class TestPetApiServer {
 	private final static Logger log=LoggerFactory.getLogger(TestPetApiServer.class);
-    private static final String PETS_PATH = "/pets/";
+	//Spring Boot 3 diferencia los endpoints que acaban/no acaban en slash 
+	//(se puede cambiar al comportamiento de la v2: https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.0-Migration-Guide
+    private static final String PETS_PATH = "/pets";
 
     @Autowired
     private MockMvc mvc;
@@ -63,7 +65,7 @@ public class TestPetApiServer {
 	}
 	@Test
 	public void testGetSingle() throws Exception {
-		ResultActions res=mvc.perform(get(PETS_PATH + "2")
+		ResultActions res=mvc.perform(get(PETS_PATH + "/2")
 				.contentType(MediaType.APPLICATION_JSON))
 			    .andExpect(status().isOk());
 		String json=res.andReturn().getResponse().getContentAsString();

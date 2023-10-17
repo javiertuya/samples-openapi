@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.16</version>
+		<version>3.1.4</version>
 		<!--relative path empty as this is a submodule, but spring starter needs to be the parent-->
 		<relativePath />
 	</parent>
@@ -115,6 +115,7 @@
 							<apiPackage>giis.samples.openapi.api</apiPackage>
 							<modelPackage>giis.samples.openapi.model</modelPackage>
 							<invokerPackage>giis.samples.openapi.invoker</invokerPackage>
+							<additionalProperties>useSpringBoot3=true</additionalProperties>
 							<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>
 								<delegatePattern>true</delegatePattern>
