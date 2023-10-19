@@ -1,6 +1,6 @@
 #Test api docs at localhost:8080
 #updated by dependabot
-FROM eclipse-temurin:17-jre-alpine@sha256:642f8b0eee66d8d2fbe07028dd511a2e531a85bd190986a3fad571032371e026
+FROM eclipse-temurin:17-jre-alpine@sha256:532dc48a91112108f012784618213767e7458368b51b77d37a1a076cd7e70ef8
 EXPOSE 8080
 #RUN useradd -u 8877 server
 #USER server
