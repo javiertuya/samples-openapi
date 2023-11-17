@@ -17,7 +17,7 @@
 		<!--openapi client dependencies: spring resttemplate+jackson -->
 		<swagger-annotations-version>1.6.12</swagger-annotations-version>
 		
-		<spring-web-version>6.0.13</spring-web-version>
+		<spring-web-version>6.1.0</spring-web-version>
 		
 		<jackson-version>2.16.0</jackson-version>
 		
