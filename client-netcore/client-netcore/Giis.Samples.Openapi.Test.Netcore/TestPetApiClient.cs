@@ -2,6 +2,7 @@ using Giis.Samples.Openapi.Api;
 using Giis.Samples.Openapi.Client;
 using Giis.Samples.Openapi.Model;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Giis.Samples.Openapi.Test.Netcore
 {
@@ -13,18 +14,18 @@ namespace Giis.Samples.Openapi.Test.Netcore
         public void TestGetAllPets()
         {
             Pets pets = api.ListPets(10);
-            Assert.True(2 <= pets.Count); //puede haber mas de dos si se ejecuta antes el metodo que crea pets
-            Assert.AreEqual("1", pets[0].Id.ToString());
-            Assert.AreEqual("cat", pets[0].Name);
-            Assert.AreEqual("2", pets[1].Id.ToString());
-            Assert.AreEqual("dog", pets[1].Name);
+            ClassicAssert.True(2 <= pets.Count); //puede haber mas de dos si se ejecuta antes el metodo que crea pets
+            ClassicAssert.AreEqual("1", pets[0].Id.ToString());
+            ClassicAssert.AreEqual("cat", pets[0].Name);
+            ClassicAssert.AreEqual("2", pets[1].Id.ToString());
+            ClassicAssert.AreEqual("dog", pets[1].Name);
         }
         [Test]
         public void TestGetExistingPet()
         {
             Pet pet = api.ShowPetById("2");
-            Assert.AreEqual("2", pet.Id.ToString());
-            Assert.AreEqual("dog", pet.Name);
+            ClassicAssert.AreEqual("2", pet.Id.ToString());
+            ClassicAssert.AreEqual("dog", pet.Name);
         }
         [Test]
         public void TestPostAndGet()
@@ -35,8 +36,8 @@ namespace Giis.Samples.Openapi.Test.Netcore
             string newName = "mouse" + newId;
             api.CreatePetQuery(newId, newName);
             Pet pet = api.ShowPetById(newId.ToString());
-            Assert.AreEqual(newId.ToString(), pet.Id.ToString());
-            Assert.AreEqual(newName, pet.Name);
+            ClassicAssert.AreEqual(newId.ToString(), pet.Id.ToString());
+            ClassicAssert.AreEqual(newName, pet.Name);
         }
         [Test]
         public void TestGetNotExistingPet()
@@ -45,11 +46,11 @@ namespace Giis.Samples.Openapi.Test.Netcore
             try
             {
                 api.ShowPetById("0");
-                Assert.Fail("should return excepton code 404 not found");
+                ClassicAssert.Fail("should return excepton code 404 not found");
             }
             catch (ApiException e)
             {
-                Assert.AreEqual(404, e.ErrorCode);
+                ClassicAssert.AreEqual(404, e.ErrorCode);
             }
         }
 
