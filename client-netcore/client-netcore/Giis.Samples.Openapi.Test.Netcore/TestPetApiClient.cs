@@ -3,6 +3,7 @@ using Giis.Samples.Openapi.Client;
 using Giis.Samples.Openapi.Model;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
+using System.Collections.Generic;
 
 namespace Giis.Samples.Openapi.Test.Netcore
 {
@@ -13,7 +14,7 @@ namespace Giis.Samples.Openapi.Test.Netcore
         [Test]
         public void TestGetAllPets()
         {
-            Pets pets = api.ListPets(10);
+            List<Pet> pets = api.ListPets(10);
             ClassicAssert.True(2 <= pets.Count); //puede haber mas de dos si se ejecuta antes el metodo que crea pets
             ClassicAssert.AreEqual("1", pets[0].Id.ToString());
             ClassicAssert.AreEqual("cat", pets[0].Name);

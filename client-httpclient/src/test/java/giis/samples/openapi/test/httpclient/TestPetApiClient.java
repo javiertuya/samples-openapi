@@ -9,11 +9,12 @@ import giis.samples.openapi.api.PetsApi;
 import giis.samples.openapi.invoker.ApiClient;
 import giis.samples.openapi.invoker.ApiException;
 import giis.samples.openapi.model.Pet;
-import giis.samples.openapi.model.Pets;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -29,7 +30,7 @@ public class TestPetApiClient {
     }
     @Test
     public void testGetAllPets() {
-		Pets pets = api.listPets(10);
+		List<Pet> pets = api.listPets(10);
 		assertTrue(2<=pets.size()); //puede haber mas de dos si se ejecuta antes el metodo que crea pets
 		assertEquals("1", pets.get(0).getId().toString());
 		assertEquals("cat", pets.get(0).getName());

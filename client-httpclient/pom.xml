@@ -130,7 +130,6 @@
 						<configuration>
 							<inputSpec>${project.parent.basedir}/schema/api.yml</inputSpec>
 							<generatorName>java</generatorName>
-							<generateAliasAsModel>true</generateAliasAsModel>
 							<apiPackage>giis.samples.openapi.api</apiPackage>
 							<modelPackage>giis.samples.openapi.model</modelPackage>
 							<invokerPackage>giis.samples.openapi.invoker</invokerPackage>

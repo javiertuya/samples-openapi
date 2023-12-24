@@ -30,7 +30,6 @@
 						<configuration>
 							<inputSpec>${project.parent.basedir}/schema/api.yml</inputSpec>
 							<generatorName>csharp</generatorName>
-							<generateAliasAsModel>true</generateAliasAsModel>
 							<packageName>Giis.Samples.Openapi</packageName>
 							<apiPackage>Api</apiPackage>
 							<modelPackage>Model</modelPackage>
