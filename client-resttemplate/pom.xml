@@ -21,7 +21,7 @@
 		
 		<jackson-version>2.16.1</jackson-version>
 		
-		<jackson-databind-version>2.16.1</jackson-databind-version>
+		<jackson-databind-version>2.16.2</jackson-databind-version>
 		
 		<jackson-databind-nullable-version>0.2.6</jackson-databind-nullable-version>
 		
