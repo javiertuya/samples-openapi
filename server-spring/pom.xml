@@ -19,7 +19,7 @@
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 		
-		<springdoc.version>1.7.0</springdoc.version>
+		<springdoc.version>1.8.0</springdoc.version>
 	</properties>
 
 	<dependencies>
@@ -100,7 +100,7 @@
 			<plugin>
 				<groupId>org.openapitools</groupId>
 				<artifactId>openapi-generator-maven-plugin</artifactId>
-				<version>7.3.0</version>
+				<version>7.4.0</version>
 				<executions>
 					<execution>
 						<goals>
