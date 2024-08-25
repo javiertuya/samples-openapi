@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.2</version>
+		<version>3.3.3</version>
 		<!--relative path empty as this is a submodule, but spring starter needs to be the parent-->
 		<relativePath />
 	</parent>
@@ -100,7 +100,7 @@
 			<plugin>
 				<groupId>org.openapitools</groupId>
 				<artifactId>openapi-generator-maven-plugin</artifactId>
-				<version>7.7.0</version>
+				<version>7.8.0</version>
 				<executions>
 					<execution>
 						<goals>
