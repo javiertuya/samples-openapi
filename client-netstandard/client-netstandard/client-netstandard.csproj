@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>client_netstandard</RootNamespace>
+
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JsonSubTypes" Version="2.0.1" />
+    
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    
+    <PackageReference Include="RestSharp" Version="112.0.0" />
+    
+    <PackageReference Include="Polly" Version="8.4.2" />
+    
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\target\generated-sources\openapi\src\Giis.Samples.Openapi\**\*.cs">
+      <Link>Giis.Samples.Openapi\%(RecursiveDir)/%(FileName)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+
+</Project>

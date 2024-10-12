@@ -7,7 +7,9 @@ updates:
     open-pull-requests-limit: 20
 
   - package-ecosystem: nuget
-    directory: "/client-netcore/"
+    directories: 
+      - "/client-netcore/"
+      - "/client-netstandard/"
     #RestSharp 107 includes breaking changes still not handled by openapi generator 6.0.0
     #RestSharp >=107 is supported by open api generator 6.1.0
     #ignore:

@@ -1,0 +1,35 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>giis</groupId>
+		<artifactId>samples-openapi</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>samples-openapi-client-netstandard</artifactId>
+
+	<!-- This pom is only to generate the netstandard api source code -->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.openapitools</groupId>
+				<artifactId>openapi-generator-maven-plugin</artifactId>
+				<version>7.8.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.parent.basedir}/schema/api.yml</inputSpec>
+							<generatorName>csharp</generatorName>
+							<packageName>Giis.Samples.Openapi</packageName>
+							<apiPackage>Api</apiPackage>
+							<modelPackage>Model</modelPackage>
+							<additionalProperties>nullableReferenceTypes=false</additionalProperties>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

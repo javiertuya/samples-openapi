@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "client-netstandard", "client-netstandard\client-netstandard.csproj", "{CE4DD1AA-DE9C-486E-A9B6-1A6DD0A30AF4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "client-netstandard-test", "client-netstandard-test\client-netstandard-test.csproj", "{4AE3153D-A62F-481C-8C43-2286861D6329}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CE4DD1AA-DE9C-486E-A9B6-1A6DD0A30AF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE4DD1AA-DE9C-486E-A9B6-1A6DD0A30AF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE4DD1AA-DE9C-486E-A9B6-1A6DD0A30AF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE4DD1AA-DE9C-486E-A9B6-1A6DD0A30AF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AE3153D-A62F-481C-8C43-2286861D6329}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AE3153D-A62F-481C-8C43-2286861D6329}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AE3153D-A62F-481C-8C43-2286861D6329}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AE3153D-A62F-481C-8C43-2286861D6329}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5DFAC485-E200-460B-B74F-BF10F5FC3551}
+	EndGlobalSection
+EndGlobal

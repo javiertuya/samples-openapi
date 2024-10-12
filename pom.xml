@@ -13,5 +13,6 @@
   	<module>client-resttemplate</module>
   	<module>client-httpclient</module>
   	<module>client-netcore</module>
+  	<module>client-netstandard</module>
   </modules>
 </project>

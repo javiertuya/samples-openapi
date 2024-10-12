@@ -39,7 +39,7 @@ jobs:
       - name: Netcore Client - Prepare environment
         uses: actions/setup-dotnet@v4
         with:
-            dotnet-version: '6.0.x'
+            dotnet-version: '8.0.x'
 
       #Generates api with maven for unified generation
       #Run build before test to fail if complie errors
@@ -49,12 +49,19 @@ jobs:
           echo "*** Build and test netcore client"
           dotnet build client-netcore/client-netcore.sln
           dotnet test --logger "trx;LogFileName=../../target/nunit-report.trx" client-netcore/client-netcore/client-netcore.csproj || exit 0
+      - name: Netstandard Client - Test (IT)
+        run: |
+          mvn generate-sources -pl client-netstandard -Dmaven.test.failure.ignore=false -U --no-transfer-progress
+          echo "*** Build and test netstandard client"
+          dotnet build client-netstandard/client-netstandard.sln
+          dotnet test --logger "trx;LogFileName=../../target/nunit-report.trx" client-netstandard/client-netstandard-test/client-netstandard-test.csproj || exit 0
 
       #Convert net test reports to surefire junit format for unified reporting
-      - name: Netcore Client - Split test reports to surefire format
+      - name: Net* Client - Split test reports to surefire format
         run: |
           dotnet tool install --global DotnetTestSplit
           DotnetTestSplit client-netcore/target/nunit-report.trx client-netcore/target/surefire-reports
+          DotnetTestSplit client-netstandard/target/nunit-report.trx client-netstandard/target/surefire-reports
 
       - if: always()
         name: Publish test report artifacts

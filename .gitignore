@@ -2,6 +2,6 @@ target
 bin
 obj
 .vs
-client-netcore/.settings
-client-netcore/.classpath
-client-netcore/.project
+.settings
+.classpath
+.project
