@@ -13,7 +13,7 @@
 			<plugin>
 				<groupId>org.openapitools</groupId>
 				<artifactId>openapi-generator-maven-plugin</artifactId>
-				<version>7.8.0</version>
+				<version>7.9.0</version>
 				<executions>
 					<execution>
 						<goals>
@@ -25,7 +25,7 @@
 							<packageName>Giis.Samples.Openapi</packageName>
 							<apiPackage>Api</apiPackage>
 							<modelPackage>Model</modelPackage>
-							<additionalProperties>nullableReferenceTypes=false</additionalProperties>
+							<additionalProperties>nullableReferenceTypes=false,targetFramework=netstandard2.0</additionalProperties>
 						</configuration>
 					</execution>
 				</executions>
