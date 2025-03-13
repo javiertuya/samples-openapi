@@ -21,7 +21,7 @@
 			<plugin>
 				<groupId>org.openapitools</groupId>
 				<artifactId>openapi-generator-maven-plugin</artifactId>
-				<version>7.11.0</version>
+				<version>7.12.0</version>
 				<executions>
 					<execution>
 						<goals>
@@ -33,7 +33,8 @@
 							<packageName>Giis.Samples.Openapi</packageName>
 							<apiPackage>Api</apiPackage>
 							<modelPackage>Model</modelPackage>
-							<additionalProperties>nullableReferenceTypes=false</additionalProperties>
+							<library>restsharp</library>
+							<additionalProperties>nullableReferenceTypes=false,targetFramework=net8.0</additionalProperties>
 							<!--<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
