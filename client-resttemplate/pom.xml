@@ -17,7 +17,7 @@
 		<!--openapi client dependencies: spring resttemplate+jackson -->
 		<swagger-annotations-version>1.6.15</swagger-annotations-version>
 		
-		<spring-web-version>6.2.3</spring-web-version>
+		<spring-web-version>6.2.5</spring-web-version>
 		
 		<jackson-version>2.18.3</jackson-version>
 		
@@ -108,7 +108,7 @@
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
-			<version>1.5.17</version>
+			<version>1.5.18</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
