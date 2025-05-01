@@ -19,7 +19,7 @@
 		
 		<spring-web-version>6.2.5</spring-web-version>
 		
-		<jackson-version>2.18.3</jackson-version>
+		<jackson-version>2.19.0</jackson-version>
 		
 		<jackson-databind-version>2.18.3</jackson-databind-version>
 		
