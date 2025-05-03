@@ -21,12 +21,22 @@
 		
 		<jackson-version>2.19.0</jackson-version>
 		
-		<jackson-databind-version>2.19.0</jackson-databind-version>
-		
 		<jackson-databind-nullable-version>0.2.6</jackson-databind-nullable-version>
 		
 		<jakarta-annotation-version>3.0.0</jakarta-annotation-version>
 	</properties>
+
+	<dependencyManagement>
+	  <dependencies>
+	    <dependency>
+	      <groupId>com.fasterxml.jackson</groupId>
+	      <artifactId>jackson-bom</artifactId>
+	      <version>${jackson-version}</version>
+	      <scope>import</scope>
+	      <type>pom</type>
+	    </dependency>   
+	  </dependencies>
+	</dependencyManagement>
 
 	<dependencies>
 		<!-- Openapi client java, spring resttemplate+jackson -->
@@ -59,22 +69,18 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
-			<version>${jackson-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
-			<version>${jackson-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>${jackson-databind-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.jaxrs</groupId>
 			<artifactId>jackson-jaxrs-json-provider</artifactId>
-			<version>${jackson-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openapitools</groupId>
@@ -84,7 +90,6 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-jsr310</artifactId>
-			<version>${jackson-version}</version>
         </dependency>
 		<dependency>
 			<groupId>jakarta.annotation</groupId>

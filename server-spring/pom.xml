@@ -22,6 +22,8 @@
 		<springdoc.version>1.8.0</springdoc.version>
 	</properties>
 
+	<!-- does not set jackson version, uses the one defined by spring boot starter -->
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
