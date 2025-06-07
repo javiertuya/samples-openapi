@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.4.5</version>
+		<version>3.5.0</version>
 		<!--relative path empty as this is a submodule, but spring starter needs to be the parent-->
 		<relativePath />
 	</parent>
