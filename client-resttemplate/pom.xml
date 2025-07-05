@@ -17,9 +17,9 @@
 		<!--openapi client dependencies: spring resttemplate+jackson -->
 		<swagger-annotations-version>1.6.16</swagger-annotations-version>
 		
-		<spring-web-version>6.2.7</spring-web-version>
+		<spring-web-version>6.2.8</spring-web-version>
 		
-		<jackson-version>2.19.0</jackson-version>
+		<jackson-version>2.19.1</jackson-version>
 		
 		<jackson-databind-nullable-version>0.2.6</jackson-databind-nullable-version>
 		
@@ -124,7 +124,7 @@
 			<plugin>
 				<groupId>org.openapitools</groupId>
 				<artifactId>openapi-generator-maven-plugin</artifactId>
-				<version>7.13.0</version>
+				<version>7.14.0</version>
 				<executions>
 					<execution>
 						<goals>
