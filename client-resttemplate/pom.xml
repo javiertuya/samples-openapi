@@ -17,11 +17,11 @@
 		<!--openapi client dependencies: spring resttemplate+jackson -->
 		<swagger-annotations-version>1.6.16</swagger-annotations-version>
 		
-		<spring-web-version>6.2.9</spring-web-version>
+		<spring-web-version>6.2.10</spring-web-version>
 		
-		<jackson-version>2.19.2</jackson-version>
+		<jackson-version>2.20.0</jackson-version>
 		
-		<jackson-databind-nullable-version>0.2.6</jackson-databind-nullable-version>
+		<jackson-databind-nullable-version>0.2.7</jackson-databind-nullable-version>
 		
 		<jakarta-annotation-version>3.0.0</jakarta-annotation-version>
 	</properties>
@@ -124,7 +124,7 @@
 			<plugin>
 				<groupId>org.openapitools</groupId>
 				<artifactId>openapi-generator-maven-plugin</artifactId>
-				<version>7.14.0</version>
+				<version>7.15.0</version>
 				<executions>
 					<execution>
 						<goals>
