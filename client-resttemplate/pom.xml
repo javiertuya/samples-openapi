@@ -17,11 +17,11 @@
 		<!--openapi client dependencies: spring resttemplate+jackson -->
 		<swagger-annotations-version>1.6.16</swagger-annotations-version>
 		
-		<spring-web-version>6.2.11</spring-web-version>
+		<spring-web-version>6.2.12</spring-web-version>
 		
-		<jackson-version>2.20.0</jackson-version>
+		<jackson-version>2.20.1</jackson-version>
 		
-		<jackson-databind-nullable-version>0.2.7</jackson-databind-nullable-version>
+		<jackson-databind-nullable-version>0.2.8</jackson-databind-nullable-version>
 		
 		<jakarta-annotation-version>3.0.0</jakarta-annotation-version>
 	</properties>
@@ -113,7 +113,7 @@
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
-			<version>1.5.19</version>
+			<version>1.5.20</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -124,7 +124,7 @@
 			<plugin>
 				<groupId>org.openapitools</groupId>
 				<artifactId>openapi-generator-maven-plugin</artifactId>
-				<version>7.16.0</version>
+				<version>7.17.0</version>
 				<executions>
 					<execution>
 						<goals>
