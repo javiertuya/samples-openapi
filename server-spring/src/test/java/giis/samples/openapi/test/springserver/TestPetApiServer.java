@@ -5,27 +5,26 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TestName;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import giis.samples.openapi.invoker.OpenApiGeneratorApplication;
 
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes={OpenApiGeneratorApplication.class}, webEnvironment=SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 public class TestPetApiServer {
@@ -37,11 +36,9 @@ public class TestPetApiServer {
     @Autowired
     private MockMvc mvc;
 
-    @Rule public TestName name = new TestName();
-
-    @Before
-    public void setUp() {
-    	log.info(name.getMethodName());
+    @BeforeEach
+    public void setUp(TestInfo testInfo) {
+    	log.info(testInfo.getDisplayName());
     }
     
     @Test
