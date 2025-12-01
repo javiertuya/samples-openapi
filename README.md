@@ -5,7 +5,7 @@ based on a OpenApi V3 specification:
 
 - *server-spring*: Rest server (Spring Boot 3, Java 17)
 - *client-resttemplate*: Java client api (Spring 6 and Fasterxml, Java 17)
-- *client-httpclient*: Java client api (Apache Httpclient 5 and Fasterxml, Java 8)
+- *client-httpclient*: Java client api (Apache Httpclient 5 and Fasterxml, Java 17)
 - *client-netcore*: .NET Core client api (RestSharp and Newtonsosft.Json, net 6.0)
 - *client-netstandard*: .NET Core client api (RestSharp and Newtonsosft.Json, netstandar 2.0)
 

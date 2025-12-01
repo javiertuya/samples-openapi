@@ -1,7 +1,14 @@
 package giis.samples.openapi.test.httpclient;
 
-import org.junit.Test;
-import org.junit.rules.TestName;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,23 +17,13 @@ import giis.samples.openapi.invoker.ApiClient;
 import giis.samples.openapi.invoker.ApiException;
 import giis.samples.openapi.model.Pet;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.util.List;
-
-import org.junit.Before;
-import org.junit.Rule;
-
 public class TestPetApiClient {
 	private final static Logger log=LoggerFactory.getLogger(TestPetApiClient.class);
     private final PetsApi api = new PetsApi(new ApiClient().setBasePath("http://localhost:8080"));
-    @Rule public TestName name = new TestName();
 
-    @Before
-    public void setUp() {
-    	log.info(name.getMethodName());
+    @BeforeEach
+    public void setUp(TestInfo testInfo) {
+    	log.info(testInfo.getDisplayName());
     }
     @Test
     public void testGetAllPets() {
