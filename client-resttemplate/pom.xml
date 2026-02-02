@@ -17,9 +17,9 @@
 		<!--openapi client dependencies: spring resttemplate+jackson -->
 		<swagger-annotations-version>1.6.16</swagger-annotations-version>
 		
-		<spring-web-version>7.0.2</spring-web-version>
+		<spring-web-version>7.0.3</spring-web-version>
 		
-		<jackson-version>2.20.1</jackson-version>
+		<jackson-version>2.21.0</jackson-version>
 		
 		<jackson-databind-nullable-version>0.2.8</jackson-databind-nullable-version>
 		
@@ -101,7 +101,7 @@
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
-			<version>6.0.1</version>
+			<version>6.0.2</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -113,7 +113,7 @@
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
-			<version>1.5.23</version>
+			<version>1.5.27</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
