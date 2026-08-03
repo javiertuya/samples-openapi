@@ -83,7 +83,8 @@ public class TestPetApiClient {
     @Test
     public void testGetAllCheckRawJson() throws Exception {
 		String json=getJson("/pets?limit=10");
-		assertEquals("[{id:1,name:cat,tag:black},{id:2,name:dog,tag:null}]",json.replaceAll("\"", ""));
+		//los modelos del servidor si que omiten los valores opcionales que no estan establecidos
+		assertEquals("[{id:1,name:cat,tag:black},{id:2,name:dog}]",json.replaceAll("\"", ""));
     }
     //el cliente de la api devuelve objetos, para obtener el json se hace la peticion directamente
     private String getJson(String path) throws Exception {

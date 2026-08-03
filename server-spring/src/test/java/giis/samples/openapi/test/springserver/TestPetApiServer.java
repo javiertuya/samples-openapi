@@ -101,9 +101,11 @@ public class TestPetApiServer {
 			    .andExpect(status().isOk())
 			    .andReturn().getResponse().getContentAsString();
 		List<Pet> pets=new ObjectMapper().readValue(response, new TypeReference<List<Pet>>() {});
-		//jackson incluye los valores opcionales que no estan establecidos (a diferencia de los clientes .NET)
+		//los modelos del servidor anotan los valores opcionales con @JsonInclude(NON_NULL),
+		//por lo que se omiten si no estan establecidos (igual que los clientes .NET,
+		//pero a diferencia de los modelos de los clientes java, que los incluyen como null)
 		String json=new ObjectMapper().writeValueAsString(pets);
-		assertEquals("[{id:1,name:cat,tag:black},{id:2,name:dog,tag:null}]",json.replaceAll("\"", ""));
+		assertEquals("[{id:1,name:cat,tag:black},{id:2,name:dog}]",json.replaceAll("\"", ""));
 	}
 	@Test
 	public void testGetAllCheckRawJson() throws Exception {
@@ -112,7 +114,7 @@ public class TestPetApiServer {
 			    .andExpect(status().isOk());
 		//en este caso se comparara el contenido completo del json obtenido
 		String json=res.andReturn().getResponse().getContentAsString();
-		assertEquals("[{id:1,name:cat,tag:black},{id:2,name:dog,tag:null}]",json.replaceAll("\"", ""));
+		assertEquals("[{id:1,name:cat,tag:black},{id:2,name:dog}]",json.replaceAll("\"", ""));
 	}
 
 }

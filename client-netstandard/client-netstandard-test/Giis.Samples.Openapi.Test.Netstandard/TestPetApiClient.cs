@@ -79,7 +79,8 @@ namespace Giis.Samples.Openapi.Test.Netcorestandard
         public void TestGetAllCheckRawJson()
         {
             string json = GetJson("/pets?limit=10");
-            ClassicAssert.AreEqual("[{id:1,name:cat,tag:black},{id:2,name:dog,tag:null}]", json.Replace("\"", ""));
+            //los modelos del servidor tambien omiten los valores opcionales que no estan establecidos
+            ClassicAssert.AreEqual("[{id:1,name:cat,tag:black},{id:2,name:dog}]", json.Replace("\"", ""));
         }
         //el cliente de la api devuelve objetos, para obtener el json se hace la peticion directamente
         private string GetJson(string path)
