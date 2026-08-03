@@ -3,6 +3,10 @@ package giis.samples.openapi.test.resttemplate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse.BodyHandlers;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -12,13 +16,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.HttpClientErrorException;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import giis.samples.openapi.api.PetsApi;
 import giis.samples.openapi.invoker.ApiClient;
 import giis.samples.openapi.model.Pet;
 
 public class TestPetApiClient {
 	private final static Logger log=LoggerFactory.getLogger(TestPetApiClient.class);
-    private final PetsApi api = new PetsApi(new ApiClient().setBasePath("http://localhost:8080"));
+	private final static String BASE_URL="http://localhost:8080";
+    private final PetsApi api = new PetsApi(new ApiClient().setBasePath(BASE_URL));
 
     @BeforeEach
     public void setUp(TestInfo testInfo) {
@@ -61,6 +68,27 @@ public class TestPetApiClient {
     	} catch (HttpClientErrorException e) {
     		assertEquals("404 NOT_FOUND", e.getStatusCode().toString());
     	}
+    }
+
+    //Los siguientes tests comprueban el json completo devuelto, incluido el tag que solo tiene uno de los pets.
+    //El primero serializa los modelos generados por openapi, el segundo usa el json tal cual lo envia el servidor
+    @Test
+    public void testGetAllCheckJson() throws Exception {
+		List<Pet> pets = api.listPets(10);
+		//jackson incluye los valores opcionales que no estan establecidos (a diferencia de los clientes .NET,
+		//que los omiten salvo que se genere la api con la opcion optionalEmitDefaultValues)
+		String json=new ObjectMapper().writeValueAsString(pets);
+		assertEquals("[{id:1,name:cat,tag:black},{id:2,name:dog,tag:null}]",json.replaceAll("\"", ""));
+    }
+    @Test
+    public void testGetAllCheckRawJson() throws Exception {
+		String json=getJson("/pets?limit=10");
+		assertEquals("[{id:1,name:cat,tag:black},{id:2,name:dog,tag:null}]",json.replaceAll("\"", ""));
+    }
+    //el cliente de la api devuelve objetos, para obtener el json se hace la peticion directamente
+    private String getJson(String path) throws Exception {
+    	HttpRequest request=HttpRequest.newBuilder().uri(URI.create(BASE_URL + path)).GET().build();
+    	return HttpClient.newHttpClient().send(request, BodyHandlers.ofString()).body();
     }
 
 }

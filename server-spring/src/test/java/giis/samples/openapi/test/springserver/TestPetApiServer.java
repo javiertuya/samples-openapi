@@ -8,6 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
@@ -22,7 +24,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import giis.samples.openapi.invoker.OpenApiGeneratorApplication;
+import giis.samples.openapi.model.Pet;
 
 
 @ExtendWith(SpringExtension.class)
@@ -30,7 +36,7 @@ import giis.samples.openapi.invoker.OpenApiGeneratorApplication;
 @AutoConfigureMockMvc
 public class TestPetApiServer {
 	private final static Logger log=LoggerFactory.getLogger(TestPetApiServer.class);
-	//Spring Boot 3 diferencia los endpoints que acaban/no acaban en slash 
+	//Spring Boot 3 diferencia los endpoints que acaban/no acaban en slash
 	//(se puede cambiar al comportamiento de la v2: https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.0-Migration-Guide
     private static final String PETS_PATH = "/pets";
     private static final String RESET_PATH = "/reset";
@@ -45,33 +51,65 @@ public class TestPetApiServer {
     	mvc.perform(post(RESET_PATH).contentType(MediaType.APPLICATION_JSON))
     	   .andExpect(status().isOk());
     }
-    
+
+    //Los siguientes tests son equivalentes a los de los clientes de la api
     @Test
-    public void testGetAllCheckJsonPath() throws Exception {
-    	mvc.perform(get(PETS_PATH).contentType(MediaType.APPLICATION_JSON))
+    public void testGetAllPets() throws Exception {
+    	mvc.perform(get(PETS_PATH + "?limit=10").contentType(MediaType.APPLICATION_JSON))
 	      .andExpect(status().isOk())
 	      .andExpect(jsonPath("$", hasSize(2)))
 	      .andExpect(jsonPath("$[0].id", is(1)))
 	      .andExpect(jsonPath("$[0].name", is("cat")))
 	      .andExpect(jsonPath("$[1].id", is(2)))
-	      .andExpect(jsonPath("$[1].name", is("dog"))); 
-    	}
+	      .andExpect(jsonPath("$[1].name", is("dog")));
+    }
+    @Test
+    public void testGetExistingPet() throws Exception {
+    	mvc.perform(get(PETS_PATH + "/2").contentType(MediaType.APPLICATION_JSON))
+	      .andExpect(status().isOk())
+	      .andExpect(jsonPath("$.id", is(2)))
+	      .andExpect(jsonPath("$.name", is("dog")));
+    }
+    @Test
+    public void testPostAndGet() throws Exception {
+    	//el id lo asigna el servidor y se devuelve en el pet creado
+    	mvc.perform(post(PETS_PATH).queryParam("name", "mouse").contentType(MediaType.APPLICATION_JSON))
+	      .andExpect(status().isCreated())
+	      .andExpect(jsonPath("$.id", is(3)))
+	      .andExpect(jsonPath("$.name", is("mouse")));
+    	mvc.perform(get(PETS_PATH + "/3").contentType(MediaType.APPLICATION_JSON))
+	      .andExpect(status().isOk())
+	      .andExpect(jsonPath("$.id", is(3)))
+	      .andExpect(jsonPath("$.name", is("mouse")));
+    }
+    @Test
+    public void testGetNotExistingPet() throws Exception {
+    	//al no usar un cliente de la api no hay excepcion, solo se comprueba el codigo de estado
+    	mvc.perform(get(PETS_PATH + "/0").contentType(MediaType.APPLICATION_JSON))
+	      .andExpect(status().isNotFound());
+    }
+
+    //Los siguientes tests comprueban el json completo devuelto, incluido el tag que solo tiene uno de los pets.
+    //El primero serializa los modelos generados por openapi, el segundo usa el json tal cual lo envia el servidor
 	@Test
 	public void testGetAllCheckJson() throws Exception {
-		ResultActions res=mvc.perform(get(PETS_PATH)
+		//en el servidor no hay un cliente de la api, se deserializa la respuesta a los modelos generados
+		String response=mvc.perform(get(PETS_PATH + "?limit=10").contentType(MediaType.APPLICATION_JSON))
+			    .andExpect(status().isOk())
+			    .andReturn().getResponse().getContentAsString();
+		List<Pet> pets=new ObjectMapper().readValue(response, new TypeReference<List<Pet>>() {});
+		//jackson incluye los valores opcionales que no estan establecidos (a diferencia de los clientes .NET)
+		String json=new ObjectMapper().writeValueAsString(pets);
+		assertEquals("[{id:1,name:cat,tag:black},{id:2,name:dog,tag:null}]",json.replaceAll("\"", ""));
+	}
+	@Test
+	public void testGetAllCheckRawJson() throws Exception {
+		ResultActions res=mvc.perform(get(PETS_PATH + "?limit=10")
 				.contentType(MediaType.APPLICATION_JSON))
 			    .andExpect(status().isOk());
 		//en este caso se comparara el contenido completo del json obtenido
 		String json=res.andReturn().getResponse().getContentAsString();
-		assertEquals("[{id:1,name:cat,tag:null},{id:2,name:dog,tag:null}]",json.replaceAll("\"", ""));
-	}
-	@Test
-	public void testGetSingle() throws Exception {
-		ResultActions res=mvc.perform(get(PETS_PATH + "/2")
-				.contentType(MediaType.APPLICATION_JSON))
-			    .andExpect(status().isOk());
-		String json=res.andReturn().getResponse().getContentAsString();
-		assertEquals("{id:2,name:dog,tag:null}",json.replaceAll("\"", ""));
+		assertEquals("[{id:1,name:cat,tag:black},{id:2,name:dog,tag:null}]",json.replaceAll("\"", ""));
 	}
 
 }

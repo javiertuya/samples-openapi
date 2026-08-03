@@ -1,15 +1,18 @@
 using Giis.Samples.Openapi.Api;
 using Giis.Samples.Openapi.Client;
 using Giis.Samples.Openapi.Model;
+using Newtonsoft.Json;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using System.Collections.Generic;
+using System.Net.Http;
 
 namespace Giis.Samples.Openapi.Test.Netcore
 {
     public class Tests
     {
-        private readonly PetsApi api = new PetsApi("http://localhost:8080");
+        private const string BaseUrl = "http://localhost:8080";
+        private readonly PetsApi api = new PetsApi(BaseUrl);
 
         [SetUp]
         public void SetUp()
@@ -59,6 +62,30 @@ namespace Giis.Samples.Openapi.Test.Netcore
             {
                 ClassicAssert.AreEqual(404, e.ErrorCode);
             }
+        }
+
+        //Los siguientes tests comprueban el json completo devuelto, incluido el tag que solo tiene uno de los pets.
+        //El primero serializa los modelos generados por openapi, el segundo usa el json tal cual lo envia el servidor
+        [Test]
+        public void TestGetAllCheckJson()
+        {
+            List<Pet> pets = api.ListPets(10);
+            //los modelos .NET omiten los valores opcionales que no estan establecidos (a diferencia de los clientes
+            //java), se pueden incluir generando la api con la opcion optionalEmitDefaultValues
+            string json = JsonConvert.SerializeObject(pets);
+            ClassicAssert.AreEqual("[{id:1,name:cat,tag:black},{id:2,name:dog}]", json.Replace("\"", ""));
+        }
+        [Test]
+        public void TestGetAllCheckRawJson()
+        {
+            string json = GetJson("/pets?limit=10");
+            ClassicAssert.AreEqual("[{id:1,name:cat,tag:black},{id:2,name:dog,tag:null}]", json.Replace("\"", ""));
+        }
+        //el cliente de la api devuelve objetos, para obtener el json se hace la peticion directamente
+        private string GetJson(string path)
+        {
+            using (HttpClient client = new HttpClient())
+                return client.GetStringAsync(BaseUrl + path).Result;
         }
 
     }

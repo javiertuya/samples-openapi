@@ -17,7 +17,8 @@ public class PetsApiDelegateImpl implements PetsApiDelegate {
 	private static Pets getPetsDb() {
 		if (petsDb==null) {
 			petsDb=new Pets();
-			petsDb.add(new Pet((long)1, "cat"));
+			//el tag es opcional, uno de los pets lo tiene y el otro no
+			petsDb.add(new Pet((long)1, "cat").tag("black"));
 			petsDb.add(new Pet((long)2, "dog"));
 		}
 		return petsDb;
