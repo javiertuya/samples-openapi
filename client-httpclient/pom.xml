@@ -21,17 +21,24 @@
 		
 		<spring-web-version>5.3.19</spring-web-version>
 		
+		<!--jackson 3 (grupo tools.jackson, requiere java 17), la api se genera con useJackson3.
+		    Las anotaciones son lo unico que sigue en com.fasterxml y con numeracion 2.x.
+		    Con jackson 2 se usaba:
 		<jackson-version>2.21.3</jackson-version>
-		
 		<jackson-databind-nullable-version>0.2.10</jackson-databind-nullable-version>
-		
+		-->
+		<jackson-version>3.1.4</jackson-version>
+
+		<jackson-annotations-version>2.21</jackson-annotations-version>
+
 		<jakarta-annotation-version>3.0.0</jakarta-annotation-version>
 	</properties>
 
 	<dependencyManagement>
 	  <dependencies>
+	    <!--con jackson 2 el grupo era com.fasterxml.jackson-->
 	    <dependency>
-	      <groupId>com.fasterxml.jackson</groupId>
+	      <groupId>tools.jackson</groupId>
 	      <artifactId>jackson-bom</artifactId>
 	      <version>${jackson-version}</version>
 	      <scope>import</scope>
@@ -60,7 +67,7 @@
 			<version>4.5.14</version>
 		</dependency>
 
-		<!-- JSON processing: jackson -->
+		<!-- JSON processing: jackson 3. Con jackson 2 las dependencias eran:
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
@@ -86,6 +93,25 @@
             <artifactId>jackson-databind-nullable</artifactId>
             <version>${jackson-databind-nullable-version}</version>
         </dependency>
+		-->
+		<dependency>
+			<groupId>tools.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>${jackson-annotations-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>tools.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>tools.jackson.jakarta.rs</groupId>
+			<artifactId>jackson-jakarta-rs-json-provider</artifactId>
+		</dependency>
+		<!--jackson-datatype-jsr310 ya va incluido en jackson-databind-->
 		<dependency>
 			<groupId>jakarta.annotation</groupId>
 			<artifactId>jakarta.annotation-api</artifactId>
@@ -135,6 +161,10 @@
 						<configuration>
 							<inputSpec>${project.parent.basedir}/schema/api.yml</inputSpec>
 							<generatorName>java</generatorName>
+							<!--useJackson3 esta soportado por la libreria apache-httpclient (requiere java 17),
+							    y openApiNullable no es compatible aun con jackson 3
+							    (el esquema no usa propiedades nullable). Con jackson 2 no se indicaba nada-->
+							<additionalProperties>useJackson3=true,openApiNullable=false</additionalProperties>
 							<apiPackage>giis.samples.openapi.api</apiPackage>
 							<modelPackage>giis.samples.openapi.model</modelPackage>
 							<invokerPackage>giis.samples.openapi.invoker</invokerPackage>

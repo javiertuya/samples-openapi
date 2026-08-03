@@ -45,14 +45,19 @@
 			<artifactId>jsr305</artifactId>
 			<version>3.0.2</version>
 		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.dataformat</groupId>
-			<artifactId>jackson-dataformat-yaml</artifactId>
-		</dependency>
 		<!-- XML processing: Jackson -->
 		<dependency>
 			<groupId>jakarta.xml.bind</groupId>
 			<artifactId>jakarta.xml.bind-api</artifactId>
+		</dependency>
+		<!-- JSON/XML processing: Jackson 3, que es el que usa spring boot 4 y el que genera openapi
+		     con la opcion useJackson3. El grupo pasa a ser tools.jackson, el soporte de java.time se
+		     integra en jackson-databind (ya no hace falta jackson-datatype-jsr310) y no se necesita
+		     jackson-databind-nullable porque se desactiva openApiNullable.
+		     Equivalencia con jackson 2, que es lo que se usaba con spring boot 3:
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-yaml</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
@@ -67,14 +72,27 @@
 			<artifactId>jackson-databind-nullable</artifactId>
 			<version>0.2.10</version>
 		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		-->
+		<dependency>
+			<groupId>tools.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-yaml</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>tools.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>tools.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
 		<!-- Bean Validation API support -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
 		</dependency>
 
 		<dependency>
@@ -111,7 +129,10 @@
 							<apiPackage>giis.samples.openapi.api</apiPackage>
 							<modelPackage>giis.samples.openapi.model</modelPackage>
 							<invokerPackage>giis.samples.openapi.invoker</invokerPackage>
-							<additionalProperties>useSpringBoot3=true</additionalProperties>
+							<!--jackson 2: <additionalProperties>useSpringBoot3=true</additionalProperties>-->
+							<!--openApiNullable no es compatible aun con jackson 3 (genera un bean con la clase
+							    Module de jackson 2), el esquema no usa propiedades nullable, se desactiva-->
+							<additionalProperties>useSpringBoot4=true,useJackson3=true,openApiNullable=false</additionalProperties>
 							<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>
 								<delegatePattern>true</delegatePattern>

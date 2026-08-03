@@ -15,7 +15,9 @@ import org.junit.jupiter.api.TestInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+//con jackson 2 esta clase estaba en com.fasterxml.jackson.databind:
+//import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 import giis.samples.openapi.api.PetsApi;
 import giis.samples.openapi.invoker.ApiClient;
