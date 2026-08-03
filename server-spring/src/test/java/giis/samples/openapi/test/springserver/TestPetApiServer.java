@@ -101,9 +101,8 @@ public class TestPetApiServer {
 			    .andExpect(status().isOk())
 			    .andReturn().getResponse().getContentAsString();
 		List<Pet> pets=new ObjectMapper().readValue(response, new TypeReference<List<Pet>>() {});
-		//los modelos del servidor anotan los valores opcionales con @JsonInclude(NON_NULL),
-		//por lo que se omiten si no estan establecidos (igual que los clientes .NET,
-		//pero a diferencia de los modelos de los clientes java, que los incluyen como null)
+		//los modelos del servidor omiten los valores opcionales que no estan establecidos
+		//(a partir de openapi-generator 7.24.0, ver la nota del README)
 		String json=new ObjectMapper().writeValueAsString(pets);
 		assertEquals("[{id:1,name:cat,tag:black},{id:2,name:dog}]",json.replaceAll("\"", ""));
 	}
@@ -112,7 +111,8 @@ public class TestPetApiServer {
 		ResultActions res=mvc.perform(get(PETS_PATH + "?limit=10")
 				.contentType(MediaType.APPLICATION_JSON))
 			    .andExpect(status().isOk());
-		//en este caso se comparara el contenido completo del json obtenido
+		//en este caso se comparara el contenido completo del json obtenido, que tampoco
+		//incluye los valores opcionales que no estan establecidos (ver la nota del README)
 		String json=res.andReturn().getResponse().getContentAsString();
 		assertEquals("[{id:1,name:cat,tag:black},{id:2,name:dog}]",json.replaceAll("\"", ""));
 	}

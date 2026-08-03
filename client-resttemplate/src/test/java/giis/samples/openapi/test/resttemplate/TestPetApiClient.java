@@ -77,8 +77,8 @@ public class TestPetApiClient {
     @Test
     public void testGetAllCheckJson() throws Exception {
 		List<Pet> pets = api.listPets(10);
-		//jackson incluye los valores opcionales que no estan establecidos (a diferencia de los clientes .NET,
-		//que los omiten salvo que se genere la api con la opcion optionalEmitDefaultValues)
+		//los modelos de los clientes java incluyen los valores opcionales que no estan
+		//establecidos (a diferencia de los del servidor y .NET, ver la nota del README)
 		String json=new ObjectMapper().writeValueAsString(pets);
 		assertEquals("[{id:1,name:cat,tag:black},{id:2,name:dog,tag:null}]",json.replaceAll("\"", ""));
     }
@@ -86,6 +86,7 @@ public class TestPetApiClient {
     public void testGetAllCheckRawJson() throws Exception {
 		String json=getJson("/pets?limit=10");
 		//los modelos del servidor si que omiten los valores opcionales que no estan establecidos
+		//(a partir de openapi-generator 7.24.0, ver la nota del README)
 		assertEquals("[{id:1,name:cat,tag:black},{id:2,name:dog}]",json.replaceAll("\"", ""));
     }
     //el cliente de la api devuelve objetos, para obtener el json se hace la peticion directamente
