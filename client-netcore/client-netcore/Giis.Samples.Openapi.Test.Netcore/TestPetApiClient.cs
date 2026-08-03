@@ -70,8 +70,8 @@ namespace Giis.Samples.Openapi.Test.Netcore
         public void TestGetAllCheckJson()
         {
             List<Pet> pets = api.ListPets(10);
-            //los modelos .NET omiten los valores opcionales que no estan establecidos (a diferencia de los clientes
-            //java), se pueden incluir generando la api con la opcion optionalEmitDefaultValues
+            //los modelos .NET omiten los valores opcionales que no estan establecidos
+            //(a diferencia de los de los clientes java, ver la nota del README)
             string json = JsonConvert.SerializeObject(pets);
             ClassicAssert.AreEqual("[{id:1,name:cat,tag:black},{id:2,name:dog}]", json.Replace("\"", ""));
         }
@@ -79,7 +79,9 @@ namespace Giis.Samples.Openapi.Test.Netcore
         public void TestGetAllCheckRawJson()
         {
             string json = GetJson("/pets?limit=10");
-            ClassicAssert.AreEqual("[{id:1,name:cat,tag:black},{id:2,name:dog,tag:null}]", json.Replace("\"", ""));
+            //los modelos del servidor tambien omiten los valores opcionales que no estan
+            //establecidos (a partir de openapi-generator 7.24.0, ver la nota del README)
+            ClassicAssert.AreEqual("[{id:1,name:cat,tag:black},{id:2,name:dog}]", json.Replace("\"", ""));
         }
         //el cliente de la api devuelve objetos, para obtener el json se hace la peticion directamente
         private string GetJson(string path)
