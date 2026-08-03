@@ -19,7 +19,8 @@
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 		
-		<springdoc.version>1.8.0</springdoc.version>
+		<!--springdoc 3.x es la linea que soporta spring boot 4, con spring boot 3 se usaba la 1.8.0-->
+		<springdoc.version>3.1.0</springdoc.version>
 	</properties>
 
 	<!-- does not set jackson version, uses the one defined by spring boot starter -->
@@ -33,10 +34,17 @@
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-commons</artifactId>
 		</dependency>
-		<!--SpringDoc dependencies -->
+		<!--SpringDoc dependencies. El nombre del artefacto cambia a partir de la version 2,
+		    con la 1.8.0 era:
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>${springdoc.version}</version>
+		</dependency>
+		-->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>${springdoc.version}</version>
 		</dependency>
 		<!-- @Nullable annotation -->
