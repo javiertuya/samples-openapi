@@ -25,6 +25,14 @@ public class PetsApiDelegateImpl implements PetsApiDelegate {
 
 
 	@Override
+	public ResponseEntity<Void> resetPets() {
+		log.debug("Call api service: resetPets");
+		petsDb=null;
+		getPetsDb();
+		return ResponseEntity.ok(null);
+	}
+
+	@Override
 	public ResponseEntity<Pets> listPets(Integer limit) {
         log.debug("Call api service: listPets");
         Pets pets=getPetsDb(); 
@@ -43,11 +51,21 @@ public class PetsApiDelegateImpl implements PetsApiDelegate {
 	}
 
 	@Override
-	public ResponseEntity<Void> createPetQuery(Integer id, String name) {
-		log.debug("Call api service: createPetQuery {} {}", id.toString(), name);
+	public ResponseEntity<Pet> createPetQuery(String name) {
+		log.debug("Call api service: createPetQuery {}", name);
 		Pets pets=getPetsDb();
-		pets.add(new Pet((long)id, name));
-		return ResponseEntity.ok(null);
+		Pet newPet=new Pet(getNextId(pets), name);
+		pets.add(newPet);
+		log.debug("created {}", newPet.toString());
+		return new ResponseEntity<>(newPet, HttpStatus.CREATED);
+	}
+
+	//el id de un nuevo pet es el siguiente al mayor de los existentes
+	private static long getNextId(Pets pets) {
+		long maxId=0;
+		for (Pet pet : pets)
+			maxId=Math.max(maxId, pet.getId());
+		return maxId+1;
 	}
 
 }

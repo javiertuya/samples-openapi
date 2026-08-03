@@ -10,12 +10,19 @@ namespace Giis.Samples.Openapi.Test.Netcore
     public class Tests
     {
         private readonly PetsApi api = new PetsApi("http://localhost:8080");
- 
+
+        [SetUp]
+        public void SetUp()
+        {
+            //restaura el contenido inicial de los pets para que los tests sean independientes
+            api.ResetPets();
+        }
+
         [Test]
         public void TestGetAllPets()
         {
             List<Pet> pets = api.ListPets(10);
-            ClassicAssert.True(2 <= pets.Count); //puede haber mas de dos si se ejecuta antes el metodo que crea pets
+            ClassicAssert.AreEqual(2, pets.Count);
             ClassicAssert.AreEqual("1", pets[0].Id.ToString());
             ClassicAssert.AreEqual("cat", pets[0].Name);
             ClassicAssert.AreEqual("2", pets[1].Id.ToString());
@@ -31,14 +38,13 @@ namespace Giis.Samples.Openapi.Test.Netcore
         [Test]
         public void TestPostAndGet()
         {
-            //para que sea repetible el id y name se calculan como el siguiente valor de la secuencia de ids existentes 
-            //(pues no se hace un reset de los pets en setup)
-            int newId = api.ListPets(10).Count + 1;
-            string newName = "mouse" + newId;
-            api.CreatePetQuery(newId, newName);
-            Pet pet = api.ShowPetById(newId.ToString());
-            ClassicAssert.AreEqual(newId.ToString(), pet.Id.ToString());
-            ClassicAssert.AreEqual(newName, pet.Name);
+            //el id lo asigna el servidor y se devuelve en el pet creado
+            Pet newPet = api.CreatePetQuery("mouse");
+            ClassicAssert.AreEqual("3", newPet.Id.ToString());
+            ClassicAssert.AreEqual("mouse", newPet.Name);
+            Pet pet = api.ShowPetById("3");
+            ClassicAssert.AreEqual("3", pet.Id.ToString());
+            ClassicAssert.AreEqual("mouse", pet.Name);
         }
         [Test]
         public void TestGetNotExistingPet()

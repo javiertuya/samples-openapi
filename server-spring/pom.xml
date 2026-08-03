@@ -115,6 +115,8 @@
 							<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>
 								<delegatePattern>true</delegatePattern>
+								<!--agrupa las operaciones por tag (como los clientes) y no por el primer segmento de la ruta-->
+								<useTags>true</useTags>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
 								<withXml>true</withXml>
 							</configOptions>

@@ -15,6 +15,7 @@ based on a OpenApi V3 specification:
 - To run from Eclipse, ensure that the generated sources (`target/generated-sources/copenapi/src/main/java`) are included in the build path
 - The .NET clients can be run from Visual Studio at `client-netcore/client-netcore.sln` and `client-netstandard/client-netstandard.sln`(each project is linked with the generated api code)
 - The OpenApi schema is common for all modules, located at [schema/api.yml](schema/api.yml)
+- The `/reset` endpoint restores the initial content of the pets store, all test suites invoke it in their setup to make tests independent
 - Endpoints of services are `localhost:8080`
 - Server is tested in a temurin java jre container
 

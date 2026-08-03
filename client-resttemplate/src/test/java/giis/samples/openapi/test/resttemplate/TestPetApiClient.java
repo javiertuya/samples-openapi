@@ -1,7 +1,6 @@
 package giis.samples.openapi.test.resttemplate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
@@ -24,11 +23,13 @@ public class TestPetApiClient {
     @BeforeEach
     public void setUp(TestInfo testInfo) {
     	log.info(testInfo.getDisplayName());
+    	//restaura el contenido inicial de los pets para que los tests sean independientes
+    	api.resetPets();
     }
     @Test
     public void testGetAllPets() {
 		List<Pet> pets = api.listPets(10);
-		assertTrue(2<=pets.size()); //puede haber mas de dos si se ejecuta antes el metodo que crea pets
+		assertEquals(2, pets.size());
 		assertEquals("1", pets.get(0).getId().toString());
 		assertEquals("cat", pets.get(0).getName());
 		assertEquals("2", pets.get(1).getId().toString());
@@ -42,14 +43,13 @@ public class TestPetApiClient {
     }
     @Test
     public void testPostAndGet() {
-    	//para que sea repetible el id y name se calculan como el siguiente valor de la secuencia de ids existentes 
-    	//(pues no se hace un reset de los pets en setup)
-    	int newId=api.listPets(10).size()+1;
-    	String newName="mouse"+newId;
-        api.createPetQuery(newId, newName);
-		Pet pet = api.showPetById(String.valueOf(newId));
-		assertEquals(String.valueOf(newId), pet.getId().toString());
-		assertEquals(newName, pet.getName());
+		//el id lo asigna el servidor y se devuelve en el pet creado
+		Pet newPet = api.createPetQuery("mouse");
+		assertEquals("3", newPet.getId().toString());
+		assertEquals("mouse", newPet.getName());
+		Pet pet = api.showPetById("3");
+		assertEquals("3", pet.getId().toString());
+		assertEquals("mouse", pet.getName());
     }
     @Test
     public void testGetNotExistingPet() {

@@ -1,6 +1,7 @@
 package giis.samples.openapi.test.springserver;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -32,13 +33,17 @@ public class TestPetApiServer {
 	//Spring Boot 3 diferencia los endpoints que acaban/no acaban en slash 
 	//(se puede cambiar al comportamiento de la v2: https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.0-Migration-Guide
     private static final String PETS_PATH = "/pets";
+    private static final String RESET_PATH = "/reset";
 
     @Autowired
     private MockMvc mvc;
 
     @BeforeEach
-    public void setUp(TestInfo testInfo) {
+    public void setUp(TestInfo testInfo) throws Exception {
     	log.info(testInfo.getDisplayName());
+    	//restaura el contenido inicial de los pets para que los tests sean independientes
+    	mvc.perform(post(RESET_PATH).contentType(MediaType.APPLICATION_JSON))
+    	   .andExpect(status().isOk());
     }
     
     @Test

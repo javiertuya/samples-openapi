@@ -43,16 +43,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
     post:
-      summary: Create a pet using query string parameters
+      summary: Create a pet using query string parameters, the id is assigned by the server
       operationId: createPetQuery
       tags:
         - pets
       parameters:
-        - in: query
-          name: id
-          schema:
-            type: integer
-          description: The id of the new pet
         - in: query
           name: name
           schema:
@@ -60,6 +55,25 @@ paths:
           description: The name of the new pet
       responses:
         201:
+          description: The pet that has been created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pet"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /reset:
+    post:
+      summary: Reset the pets store to its initial content
+      operationId: resetPets
+      tags:
+        - pets
+      responses:
+        200:
           description: Null response
         default:
           description: unexpected error
