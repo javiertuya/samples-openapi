@@ -122,7 +122,7 @@
 			<plugin>
 				<groupId>org.openapitools</groupId>
 				<artifactId>openapi-generator-maven-plugin</artifactId>
-				<version>7.24.0</version>
+				<version>7.25.0</version>
 				<executions>
 					<execution>
 						<goals>
@@ -148,6 +148,12 @@
 								<useTags>true</useTags>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
 								<withXml>true</withXml>
+								<!--since openapi-generator 7.25.0 the jackson inclusion annotations are opt-in,
+								    they are enabled to keep the 7.24.0 behaviour (see the README note):
+								    the optional properties that are not set are omitted when serializing-->
+								<generateJsonIncludeAnnotations>true</generateJsonIncludeAnnotations>
+								<!--idem for the annotations that control the deserialization of explicit nulls-->
+								<generateJsonSetterNullsAnnotations>true</generateJsonSetterNullsAnnotations>
 							</configOptions>
 						</configuration>
 					</execution>
