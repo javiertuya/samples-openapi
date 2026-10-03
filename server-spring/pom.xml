@@ -20,7 +20,7 @@
 		<maven.compiler.target>17</maven.compiler.target>
 		
 		<!--springdoc 3.x es la linea que soporta spring boot 4, con spring boot 3 se usaba la 1.8.0-->
-		<springdoc.version>3.1.0</springdoc.version>
+		<springdoc.version>3.1.1</springdoc.version>
 	</properties>
 
 	<!-- does not set jackson version, uses the one defined by spring boot starter -->
