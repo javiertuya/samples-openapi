@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>4.1.1</version>
+		<version>4.1.2</version>
 		<!--relative path empty as this is a submodule, but spring starter needs to be the parent-->
 		<relativePath />
 	</parent>
@@ -20,7 +20,7 @@
 		<maven.compiler.target>17</maven.compiler.target>
 		
 		<!--springdoc 3.x es la linea que soporta spring boot 4, con spring boot 3 se usaba la 1.8.0-->
-		<springdoc.version>3.1.1</springdoc.version>
+		<springdoc.version>3.2.0</springdoc.version>
 	</properties>
 
 	<!-- does not set jackson version, uses the one defined by spring boot starter -->
@@ -122,7 +122,7 @@
 			<plugin>
 				<groupId>org.openapitools</groupId>
 				<artifactId>openapi-generator-maven-plugin</artifactId>
-				<version>7.25.0</version>
+				<version>7.26.0</version>
 				<executions>
 					<execution>
 						<goals>
@@ -148,7 +148,7 @@
 								<useTags>true</useTags>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
 								<withXml>true</withXml>
-								<!--since openapi-generator 7.25.0 the jackson inclusion annotations are opt-in,
+								<!--since openapi-generator 7.26.0 the jackson inclusion annotations are opt-in,
 								    they are enabled to keep the 7.24.0 behaviour (see the README note):
 								    the optional properties that are not set are omitted when serializing-->
 								<generateJsonIncludeAnnotations>true</generateJsonIncludeAnnotations>
